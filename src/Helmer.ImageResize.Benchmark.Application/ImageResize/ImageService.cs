@@ -1,4 +1,4 @@
-﻿namespace Helmer.ImageResize.Domain.Resize;
+﻿namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 public class ImageService
 {

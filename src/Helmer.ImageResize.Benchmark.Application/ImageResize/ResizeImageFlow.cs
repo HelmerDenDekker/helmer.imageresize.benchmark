@@ -1,8 +1,8 @@
-﻿using Helmer.ImageResize.Domain.Extensions;
-using System.Drawing;
+﻿using System.Drawing;
+using Helmer.ImageResize.Benchmark.Application.Extensions;
 using ImageFlow = Imageflow.Fluent;
 
-namespace Helmer.ImageResize.Domain.Resize;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 
 /// <summary>

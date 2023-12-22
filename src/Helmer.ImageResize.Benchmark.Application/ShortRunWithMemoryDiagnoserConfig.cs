@@ -11,7 +11,7 @@ using System.Security.Principal;
 using BenchmarkDotNet.Diagnostics.Windows;
 #endif
 
-namespace Helmer.ImageResize.Benchmark;
+namespace Helmer.ImageResize.Benchmark.Application;
 
 public class ShortRunWithMemoryDiagnoserConfig : ManualConfig
 {

@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using Helmer.ImageResize.Domain.Extensions;
+using Helmer.ImageResize.Benchmark.Application.Extensions;
 
-namespace Helmer.ImageResize.Domain.Resize;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 //ToDo let it inherit from some interface maybe????
 /// <summary>

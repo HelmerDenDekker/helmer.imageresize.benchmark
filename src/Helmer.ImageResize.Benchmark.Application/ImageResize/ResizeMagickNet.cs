@@ -1,7 +1,7 @@
-﻿using Helmer.ImageResize.Domain.Extensions;
+﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
 using ImageMagick;
 
-namespace Helmer.ImageResize.Domain;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 public class ResizeMagickNet
 {

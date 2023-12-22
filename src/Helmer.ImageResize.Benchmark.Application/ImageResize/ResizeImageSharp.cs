@@ -1,11 +1,9 @@
-﻿using Helmer.ImageResize.Domain.Extensions;
+﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
 
-
-
-namespace Helmer.ImageResize.Domain;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 // https://docs.sixlabors.com/articles/imagesharp/resize.html
 public class ResizeImageSharp

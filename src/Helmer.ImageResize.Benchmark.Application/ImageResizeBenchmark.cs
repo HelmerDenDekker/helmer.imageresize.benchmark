@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Helmer.ImageResize.Domain.Resize;
+using Helmer.ImageResize.Benchmark.Application.ImageResize;
 
-namespace Helmer.ImageResize.Benchmark;
+namespace Helmer.ImageResize.Benchmark.Application;
 
 public class ImageResizeBenchmark
 {

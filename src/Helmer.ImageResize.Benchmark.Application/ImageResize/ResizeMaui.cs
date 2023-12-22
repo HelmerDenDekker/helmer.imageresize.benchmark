@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.Design.Serialization;
-using System.Reflection;
-using Helmer.ImageResize.Domain.Extensions;
+﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
 using Microsoft.Maui.Graphics;
 #if IOS || ANDROID || MACCATALYST
 using Microsoft.Maui.Graphics.Platform;
@@ -10,7 +7,7 @@ using Microsoft.Maui.Graphics.Win2D;
 #endif
 
 
-namespace Helmer.ImageResize.Domain.Resize
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize
 {
     public class ResizeMaui
     {
@@ -18,7 +15,7 @@ namespace Helmer.ImageResize.Domain.Resize
         public void ImageResize(int size, string sourcePath, string destinationPath, int quality)
         {
 			
-            IImage image;
+            IImage image = null;
 
             using (var stream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read))
             {
@@ -39,7 +36,8 @@ namespace Helmer.ImageResize.Domain.Resize
                     newImage.Save(memStream, ImageFormat.Jpeg, quality);
 					using (FileStream output = File.Create(FileNameLogic.OutputPath(sourcePath, destinationPath, "Maui")))
 					{
-						memStream.CopyTo(output);
+						memStream.Seek(0, SeekOrigin.Begin);
+                        memStream.CopyTo(output);
 					}
                 }
             }

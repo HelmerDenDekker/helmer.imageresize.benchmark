@@ -1,7 +1,7 @@
 ﻿using FreeImageAPI;
-using Helmer.ImageResize.Domain.Extensions;
+using Helmer.ImageResize.Benchmark.Application.Extensions;
 
-namespace Helmer.ImageResize.Domain.Resize;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 /// <summary>
 /// Free Image nuget https://github.com/matgr1/FreeImage-dotnet-core

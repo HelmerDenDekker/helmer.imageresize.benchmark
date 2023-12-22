@@ -1,7 +1,7 @@
-﻿using Helmer.ImageResize.Domain.Extensions;
+﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
 using SkiaSharp;
 
-namespace Helmer.ImageResize.Domain.Resize;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 /// <summary>
 /// https://schwabencode.com/blog/2019/06/11/Resize-Image-NET-Core Skia was made to be fast
 /// </summary>

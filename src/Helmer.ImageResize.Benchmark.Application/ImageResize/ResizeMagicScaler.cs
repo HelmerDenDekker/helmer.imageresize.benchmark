@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
-using Helmer.ImageResize.Domain.Extensions;
+using Helmer.ImageResize.Benchmark.Application.Extensions;
 using PhotoSauce.MagicScaler;
 
-namespace Helmer.ImageResize.Domain;
+namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 public class ResizeMagicScaler
 {

@@ -1,4 +1,4 @@
-﻿namespace Helmer.ImageResize.Domain.Extensions;
+﻿namespace Helmer.ImageResize.Benchmark.Application.Extensions;
 
 public static class SizeLogic
 {
