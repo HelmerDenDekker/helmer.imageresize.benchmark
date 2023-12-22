@@ -2,7 +2,7 @@
 using Microsoft.Maui.Graphics;
 using System.Runtime.InteropServices;
 using Microsoft.Maui.Graphics.Platform;
-using Microsoft.Maui.Graphics.Win2D;
+//using Microsoft.Maui.Graphics.Win2D;
 
 
 namespace Helmer.ImageResize.Benchmark.Application.ImageResize
@@ -11,20 +11,10 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
     {
 
         public void ImageResize(int size, string sourcePath, string destinationPath, int quality)
-        {
-			
-            IImage image = null;
+		{
+			var image = Image(sourcePath);
 
-            using (var stream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read))
-            {
-				
-				if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    image = PlatformImage.FromStream(stream, ImageFormat.Jpeg);
-                if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    image = new W2DImageLoadingService().FromStream(stream);
-            }
-
-            if (image != null)
+			if (image != null)
             {
                 var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
                 IImage newImage = image.Resize(scaled.width, scaled.height, ResizeMode.Stretch);
@@ -38,7 +28,23 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
 					}
                 }
             }
-        }
-    }
+		}
+
+		private static IImage Image(string sourcePath)
+		{
+			IImage image;
+
+			using (var stream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read))
+			{
+				
+				if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+				return PlatformImage.FromStream(stream, ImageFormat.Jpeg);
+				//
+				//image = new W2DImageLoadingService().FromStream(stream);
+			}
+
+			return image;
+		}
+	}
 }
 
