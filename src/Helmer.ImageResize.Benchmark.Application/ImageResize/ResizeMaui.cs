@@ -1,10 +1,8 @@
 ﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
 using Microsoft.Maui.Graphics;
-#if IOS || ANDROID || MACCATALYST
+using System.Runtime.InteropServices;
 using Microsoft.Maui.Graphics.Platform;
-#elif WINDOWS
 using Microsoft.Maui.Graphics.Win2D;
-#endif
 
 
 namespace Helmer.ImageResize.Benchmark.Application.ImageResize
@@ -19,12 +17,11 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
 
             using (var stream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read))
             {
-#if IOS || ANDROID
-                image = PlatformImage.FromStream(stream, ImageFormat.Jpeg);
-
-#elif WINDOWS
-        image = new W2DImageLoadingService().FromStream(stream);
-#endif
+				
+				if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    image = PlatformImage.FromStream(stream, ImageFormat.Jpeg);
+                if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    image = new W2DImageLoadingService().FromStream(stream);
             }
 
             if (image != null)
