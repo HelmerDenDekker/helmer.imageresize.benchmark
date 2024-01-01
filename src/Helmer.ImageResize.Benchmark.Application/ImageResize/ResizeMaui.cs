@@ -38,8 +38,9 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
 			{
 				
 				if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-				return PlatformImage.FromStream(stream, ImageFormat.Jpeg);
-				//
+					return PlatformImage.FromStream(stream, ImageFormat.Jpeg);
+				// Win2D only for windows10
+				throw new NotImplementedException();
 				//image = new W2DImageLoadingService().FromStream(stream);
 			}
 

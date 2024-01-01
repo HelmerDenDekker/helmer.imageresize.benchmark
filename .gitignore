@@ -389,3 +389,5 @@ coverage
 *.ntvs*
 *.njsproj
 *.sw?
+
+output/*
