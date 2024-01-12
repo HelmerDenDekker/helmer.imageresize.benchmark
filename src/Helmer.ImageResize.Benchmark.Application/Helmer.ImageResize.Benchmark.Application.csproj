@@ -12,6 +12,7 @@
     <PackageReference Include="FreeImage.Standard" Version="4.3.8" />
     <PackageReference Include="Imageflow.AllPlatforms" Version="0.10.2" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.0" />
     <PackageReference Include="Microsoft.Maui.Graphics" Version="8.0.3" />
     <PackageReference Include="PhotoSauce.MagicScaler" Version="0.14.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.1" />
