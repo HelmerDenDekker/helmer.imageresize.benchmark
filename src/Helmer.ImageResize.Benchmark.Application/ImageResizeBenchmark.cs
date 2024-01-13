@@ -7,29 +7,29 @@ namespace Helmer.ImageResize.Benchmark.Application;
 [MarkdownExporterAttribute.Default]
 public class ImageResizeBenchmark
 {
-    private int size = 150;
-    private int quality = 75;
+    private int[] sizes = [80, 320, 768, 1280];
+    private int quality = 95;
 
     [Benchmark(Baseline = true)]
-    public void ResizeDrawing() => new ImageService().SystemDrawingBenchmark(size, quality);
+    public void ResizeDrawing() => new ImageService().SystemDrawingBenchmark(sizes, quality);
 
     [Benchmark]
-    public void ResizeImageSharp() => new ImageService().ImageSharpBenchmark(size, quality);
+    public void ResizeImageSharp() => new ImageService().ImageSharpBenchmark(sizes, quality);
 
     [Benchmark]
-    public void ResizeMagickNet() => new ImageService().MagickNetBenchmark(size, quality);
+    public void ResizeMagickNet() => new ImageService().MagickNetBenchmark(sizes, quality);
 
     [Benchmark]
-    public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(size, quality);
+    public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(sizes, quality);
 
     [Benchmark]
-    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(size, quality);
+    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(sizes, quality);
+
+    //[Benchmark]
+    //public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(sizes, quality);
 
     [Benchmark]
-    public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(size, quality);
-
-    [Benchmark]
-    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(size, quality);
+    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);
 
     //[Benchmark]
     //public void ResizeMaui() => new ImageService().MauiBenchmark(size, quality);

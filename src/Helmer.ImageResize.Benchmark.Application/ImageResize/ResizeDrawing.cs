@@ -12,32 +12,35 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
 public class ResizeDrawing
 {
     // Filepath for saving pictures from settings //ToDo think about width and height
-    public void ImageResize(int size, string sourcePath, string destinationPath, int quality)
+    public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
     {
         var systemDrawingJpegCodec = ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
 
         using (var image = Image.FromFile(sourcePath, true))
         {
-            var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
-            var resized = new Bitmap(scaled.width, scaled.height);
-            using (var graphics = Graphics.FromImage(resized))
-            using (var attributes = new ImageAttributes())
-            {
-                attributes.SetWrapMode(WrapMode.TileFlipXY);
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.AssumeLinear;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.DrawImage(image, Rectangle.FromLTRB(0, 0, resized.Width, resized.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+			foreach (var size in sizes)
+			{
+				var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
+				var resized = new Bitmap(scaled.width, scaled.height);
+				using (var graphics = Graphics.FromImage(resized))
+				using (var attributes = new ImageAttributes())
+				{
+					attributes.SetWrapMode(WrapMode.TileFlipXY);
+					graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+					graphics.CompositingMode = CompositingMode.SourceCopy;
+					graphics.CompositingQuality = CompositingQuality.AssumeLinear;
+					graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+					graphics.DrawImage(image, Rectangle.FromLTRB(0, 0, resized.Width, resized.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
 
-                // Save the results
-                using (var encoderParams = new EncoderParameters(1))
-                using (var qualityParam = new EncoderParameter(Encoder.Quality, quality))
-                {
-                    encoderParams.Param[0] = qualityParam;
-                    resized.Save(FileNameLogic.OutputPath(sourcePath, destinationPath, "SystemDrawing"), systemDrawingJpegCodec, encoderParams);
-                }
-            }
-        }
+					// Save the results
+					using (var encoderParams = new EncoderParameters(1))
+					using (var qualityParam = new EncoderParameter(Encoder.Quality, quality))
+					{
+						encoderParams.Param[0] = qualityParam;
+						resized.Save(FileNameLogic.OutputPath(sourcePath, destinationPath, $"SystemDrawing-{size}"), systemDrawingJpegCodec, encoderParams);
+					}
+				}
+			}
+		}
     }
 }

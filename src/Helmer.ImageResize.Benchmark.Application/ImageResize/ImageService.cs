@@ -14,66 +14,67 @@ public class ImageService
     }
 
 
-    public void SystemDrawingBenchmark(int size, int quality)
+    public void SystemDrawingBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeDrawing().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeDrawing().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
 
-    public void ImageSharpBenchmark(int size, int quality)
+    public void ImageSharpBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeImageSharp().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeImageSharp().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
 
-    public void MagickNetBenchmark(int size, int quality)
+    public void MagickNetBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeMagickNet().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeMagickNet().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
-    public void MagicScalerBenchmark(int size, int quality)
+    public void MagicScalerBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeMagicScaler().ImageResize(size, image, _outputDirectory, quality);
-        }
-    }
-
-    public void SkiaSharpBenchmark(int size, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeSkiaSharp().ImageResize(size, image, _outputDirectory, quality);
-        }
-    }
-    public void FreeImageBenchmark(int size, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeFreeImage().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeMagicScaler().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
 
-    public void ImageFlowBenchmark(int size, int quality)
+    public void SkiaSharpBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeImageFlow().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeSkiaSharp().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
-    public void MauiBenchmark(int size, int quality)
+    //public void FreeImageBenchmark(int[] sizes, int quality)
+    //{
+    //    foreach (string image in _images)
+    //    {
+    //        new ResizeFreeImage().ImageResize(size, image, _outputDirectory, quality);
+    //    }
+    //}
+
+    public void ImageFlowBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeMaui().ImageResize(size, image, _outputDirectory, quality);
+            new ResizeImageFlow().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
+
+    //public void MauiBenchmark(int[] sizes, int quality)
+    //{
+    //    foreach (string image in _images)
+    //    {
+    //        new ResizeMaui().ImageResize(size, image, _outputDirectory, quality);
+    //    }
+    //}
 
 
 
