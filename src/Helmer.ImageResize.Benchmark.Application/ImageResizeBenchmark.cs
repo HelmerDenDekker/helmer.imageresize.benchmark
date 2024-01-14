@@ -28,8 +28,8 @@ public class ImageResizeBenchmark
     //[Benchmark]
     //public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(sizes, quality);
 
-    [Benchmark]
-    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);
+    //[Benchmark]
+    //public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);
 
     //[Benchmark]
     //public void ResizeMaui() => new ImageService().MauiBenchmark(size, quality);
