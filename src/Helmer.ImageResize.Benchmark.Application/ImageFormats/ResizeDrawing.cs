@@ -3,17 +3,17 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Helmer.ImageResize.Benchmark.Application.Extensions;
 
-namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
+namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
 /// <summary>
-///     Uses the system.drawing of Windows, old Win32 GDI
-///     https://www.hanselman.com/blog/how-do-you-use-systemdrawing-in-net-core
+/// Uses the system.drawing of Windows, old Win32 GDI https://www.hanselman.com/blog/how-do-you-use-systemdrawing-in-net-core
 /// </summary>
 public class ResizeDrawing
 {
-	public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
-	{
-		var systemDrawingJpegCodec = ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
+    public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
+    {
+        var systemDrawingJpegCodec = ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
+		var systemDrawingWebpCodec = ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Webp.Guid);
 
 		using var image = Image.FromFile(sourcePath, true);
 
@@ -21,11 +21,11 @@ public class ResizeDrawing
 		{
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
 			var resized = new Bitmap(scaled.width, scaled.height);
-
+			
 			using var graphics = Graphics.FromImage(resized);
 
 			using var attributes = new ImageAttributes();
-
+			
 			attributes.SetWrapMode(WrapMode.TileFlipXY);
 			graphics.PixelOffsetMode = PixelOffsetMode.HighQuality; // Highest quality
 			graphics.CompositingMode = CompositingMode.SourceCopy;
@@ -42,7 +42,33 @@ public class ResizeDrawing
 
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"SystemDrawing-{size}");
 
-			resized.Save($"{fileName}.jpg", systemDrawingJpegCodec, encoderParams);
+			
+            resized.Save($"{fileName}.png", ImageFormat.Png);
+			
+			Bitmap png = (Bitmap)resized.Clone();
+			png.Save($"{fileName}.png", ImageFormat.Png);
+			
+			
+			
+			Bitmap jpg = (Bitmap)resized.Clone();
+			jpg.Save($"{fileName}.jpg", systemDrawingJpegCodec, encoderParams);
+			
+			using var webpEncoderParams = new EncoderParameters(1);
+			
+			// TODO Webp format for System.Drawing
+			if(systemDrawingWebpCodec == null)
+			{
+				Console.WriteLine("Webp codec not found");
+				continue;
+			}
+			Image webp = (Bitmap)resized.Clone();
+			webp.Save($"{fileName}.webp", systemDrawingWebpCodec, webpEncoderParams);
+			// using var skBitmap = SKBitmap.
+			//
+			// using var skImage = SKImage.F(resized);
+			// using var skData = skImage.Encode(SkiaSharp.SKEncodedImageFormat.Webp, quality);
+			// using var file = File.OpenWrite($"{fileName}-SK.webp");
+			// skData.SaveTo(file);
 		}
 	}
 }

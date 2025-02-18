@@ -22,11 +22,17 @@ public class ImageResizeBenchmark
     [Benchmark]
     public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(sizes, quality);
 
-    [Benchmark]
-    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(sizes, quality);
-
     //[Benchmark]
-    //public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(sizes, quality);
+    //public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(sizes, quality);
+
+    [Benchmark]
+    public void ResizeNetVips() => new ImageService().VipsBenchmark(sizes, quality);
+    
+    [Benchmark]
+    public void ResizeSkiaJeveSharp() => new ImageService().SkiaSharpJeveBenchmark(sizes, quality);
+    
+    [Benchmark]
+    public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(sizes, quality);
 
     //[Benchmark]
     //public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);

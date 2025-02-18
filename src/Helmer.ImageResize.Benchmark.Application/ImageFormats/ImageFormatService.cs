@@ -1,12 +1,12 @@
-﻿namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
+﻿namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
-public class ImageService
+public class ImageFormatService
 {
     private IEnumerable<string> _images;
     private string _imageDirectory;
     private string _outputDirectory;
 
-    public ImageService()
+    public ImageFormatService()
     {
         _imageDirectory = FindClosestDirectory();
         _images = Load(_imageDirectory);
@@ -45,21 +45,13 @@ public class ImageService
         }
     }
 
-    public void SkiaSharpJeveBenchmark(int[] sizes, int quality)
+    public void SkiaSharpBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeSkiaSharpJeVe().ImageResize(sizes, image, _outputDirectory, quality);
+            new ResizeSkiaSharp().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
-    
-    //public void SkiaSharpBenchmark(int[] sizes, int quality)
-    //{
-    //    foreach (string image in _images)
-    //    {
-    //        new ResizeSkiaSharp().ImageResize(sizes, image, _outputDirectory, quality);
-    //    }
-    //}
     
     public void VipsBenchmark(int[] sizes, int quality)
     {
@@ -69,33 +61,6 @@ public class ImageService
         }
     }
     
-    public void FreeImageBenchmark(int[] sizes, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeFreeImage().ImageResize(sizes, image, _outputDirectory, quality);
-        }
-    }
-
-    public void ImageFlowBenchmark(int[] sizes, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeImageFlow().ImageResize(sizes, image, _outputDirectory, quality);
-        }
-    }
-
-    //public void MauiBenchmark(int[] sizes, int quality)
-    //{
-    //    foreach (string image in _images)
-    //    {
-    //        new ResizeMaui().ImageResize(size, image, _outputDirectory, quality);
-    //    }
-    //}
-
-
-
-
     /// <summary>
     /// Loads filenames from the images directory //ToDo validation which is now in FindClosestDirectory
     /// </summary>
@@ -130,7 +95,7 @@ public class ImageService
     {
         // Find the closest images directory
         string imageDirectory = Path.GetFullPath(".");
-        while (!Directory.Exists(Path.Combine(imageDirectory, "smallImages")))
+        while (!Directory.Exists(Path.Combine(imageDirectory, "images")))
         {
             imageDirectory = Path.GetDirectoryName(imageDirectory);
             if (imageDirectory == null)
@@ -139,6 +104,6 @@ public class ImageService
             }
         }
 
-        return Path.Combine(imageDirectory, "smallImages");
+        return Path.Combine(imageDirectory, "images");
     }
 }
