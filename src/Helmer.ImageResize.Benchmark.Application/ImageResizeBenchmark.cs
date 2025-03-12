@@ -7,7 +7,7 @@ namespace Helmer.ImageResize.Benchmark.Application;
 [MarkdownExporterAttribute.Default]
 public class ImageResizeBenchmark
 {
-    private int[] sizes = [80, 320, 768, 1280];
+    private int[] sizes = [80, 320, 768];//[80, 320, 768, 1280];
     private int quality = 95;
 
     [Benchmark(Baseline = true)]
@@ -34,8 +34,8 @@ public class ImageResizeBenchmark
     [Benchmark]
     public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(sizes, quality);
 
-    //[Benchmark]
-    //public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);
+    [Benchmark]
+    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(sizes, quality);
 
     //[Benchmark]
     //public void ResizeMaui() => new ImageService().MauiBenchmark(size, quality);

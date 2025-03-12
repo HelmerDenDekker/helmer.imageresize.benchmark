@@ -5,7 +5,5 @@ namespace Helmer.ImageResize.Benchmark.Application;
 
 public class Program
 {
-    public static void Main(string[] args) => BenchmarkRunner.Run<ImageResizeBenchmark>(new ShortRunWithMemoryDiagnoserConfig()); //BenchmarkRunner.Run<ArrayBenchmark>(new ShortRunWithMemoryDiagnoserConfig());
-    //; // new ImageService().MauiBenchmark(150,75);//
-    //BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
+    public static void Main(string[] args) => BenchmarkRunner.Run<ImageResizeBenchmark>(new ShortRunWithMemoryDiagnoserConfig()); 
 }

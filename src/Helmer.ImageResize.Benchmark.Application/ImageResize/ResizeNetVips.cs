@@ -14,7 +14,7 @@ public class ResizeNetVips
 			using var resized = NetVips.Image.Thumbnail(sourcePath, width, height);
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
 
-			resized.Mutate(mut =>
+			using var imageNoExif = resized.Mutate(mut =>
 			{
 				foreach (var field in resized.GetFields())
                 {
@@ -31,7 +31,7 @@ public class ResizeNetVips
 			{
 				{"Q", quality}
 			};
-			resized.WriteToTarget(target, ".jpg", kwargs);
+			imageNoExif.WriteToTarget(target, ".jpg", kwargs);
 		}
 	}
 }
