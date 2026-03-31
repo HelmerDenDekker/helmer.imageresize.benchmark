@@ -13,6 +13,7 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageFormats
 
         public void ImageResize(int size, string sourcePath, string destinationPath, int quality)
         {
+            throw new NotImplementedException();
             var image = Image(sourcePath);
 
             if (image != null)

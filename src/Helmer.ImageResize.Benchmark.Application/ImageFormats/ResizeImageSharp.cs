@@ -22,7 +22,6 @@ public class ResizeImageSharp
 			resized.Metadata.ExifProfile = null;
 			resized.Metadata.IptcProfile = null;
 			resized.Metadata.XmpProfile = null;
-
 			
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"ImageSharp-{size}");
 			

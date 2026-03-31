@@ -16,13 +16,12 @@ public class ResizeMagicScaler
 
 		foreach (var size in sizes)
 		{
-
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
 			
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"MagicScaler-{size}");
 			
 			using var jpegOutput =  new FileStream($"{fileName}.jpg", FileMode.Create);
-			var jpgSettings = new ProcessImageSettings()
+			var jpgSettings = new ProcessImageSettings
 			{
 				Width = scaled.width,
 				Height = scaled.height,
@@ -32,7 +31,7 @@ public class ResizeMagicScaler
 			MagicImageProcessor.ProcessImage(sourcePath, jpegOutput, jpgSettings);
 			
 			using var pngOutput = new FileStream($"{fileName}.png", FileMode.Create);
-			var pngSettings = new ProcessImageSettings()
+			var pngSettings = new ProcessImageSettings
 			{
 				Width = scaled.width,
 				Height = scaled.height,
@@ -41,15 +40,15 @@ public class ResizeMagicScaler
 			};
 			MagicImageProcessor.ProcessImage(sourcePath, pngOutput, pngSettings);
 			
-			// using var webpOutput = new FileStream($"{fileName}.webp", FileMode.Create);
-			// var webpSettings = new ProcessImageSettings()
-			// {
-			// 	Width = scaled.width,
-			// 	Height = scaled.height,
-			// 	ResizeMode = CropScaleMode.Max
-			// };
-			// webpSettings.TrySetEncoderFormat(ImageMimeTypes.Webp);
-			// MagicImageProcessor.ProcessImage(sourcePath, webpOutput, webpSettings);
+			using var webpOutput = new FileStream($"{fileName}.webp", FileMode.Create);
+			var webpSettings = new ProcessImageSettings
+			{
+				Width = scaled.width,
+				Height = scaled.height,
+				ResizeMode = CropScaleMode.Max
+			};
+			webpSettings.TrySetEncoderFormat(ImageMimeTypes.Webp);
+			MagicImageProcessor.ProcessImage(sourcePath, webpOutput, webpSettings);
 		}
 	}
 }

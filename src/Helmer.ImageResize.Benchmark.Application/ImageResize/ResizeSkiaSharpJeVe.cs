@@ -25,7 +25,7 @@ public class ResizeSkiaSharpJeVe
 			var approximation = new SKImageInfo(approximatedScale.Width, approximatedScale.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul, SKColorSpace.CreateSrgb());
 			//Resizing via SKImage is blurry. Resizing via SKBitmap is great. (???)
 			using var destination = SKBitmap.Decode(codec, approximation);
-            var scale = new SKImageInfo(scaled.width, scaled.height);
+			var scale = new SKImageInfo(scaled.width, scaled.height);
 			var samplingOptions = new SKSamplingOptions(SKCubicResampler.Mitchell);
 
 			using var resized = destination.Resize(scale, samplingOptions);

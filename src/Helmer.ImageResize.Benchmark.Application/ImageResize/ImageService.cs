@@ -130,7 +130,7 @@ public class ImageService
     {
         // Find the closest images directory
         string imageDirectory = Path.GetFullPath(".");
-        while (!Directory.Exists(Path.Combine(imageDirectory, "smallImages")))
+        while (!Directory.Exists(Path.Combine(imageDirectory, "images")))
         {
             imageDirectory = Path.GetDirectoryName(imageDirectory);
             if (imageDirectory == null)
@@ -139,6 +139,6 @@ public class ImageService
             }
         }
 
-        return Path.Combine(imageDirectory, "smallImages");
+        return Path.Combine(imageDirectory, "images");
     }
 }
