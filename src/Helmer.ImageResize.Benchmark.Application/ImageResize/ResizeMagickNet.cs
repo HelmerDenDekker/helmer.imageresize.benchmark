@@ -12,19 +12,10 @@ public class ResizeMagickNet
 			using var image = new MagickImage(sourcePath);
 			
             var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
-            //if(image.ColorSpace != ColorSpace.sRGB)
-            //{
-            //    image.GammaCorrect(2.2);
-            //}
-            
             image.Resize((uint)scaled.width, (uint)scaled.height);
 
             // Reduce the size of the file
-            var exif = image.GetExifProfile();
-            if (exif != null)
-            {
-                image.RemoveProfile(exif);
-            }
+            image.Strip();
 
             // Save the results
             var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"MagickNET-{size}");

@@ -9,15 +9,12 @@ public class ResizeSkiaSharpJeVe
 {
     public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
 	{
-		//using var original = SKBitmap.Decode(sourcePath); 
 		using var skData = SKData.Create(sourcePath);
 		using var codec = SKCodec.Create(skData);
 
 		foreach (var size in sizes)
 		{
 			var scaled = SizeLogic.ScaledSize(codec.Info.Width, codec.Info.Height, size);
-
-            var sp = codec.Info.ColorSpace;
 
             // trick for boosting performance?
             var approximatedScale = codec.GetScaledDimensions( (float)scaled.width / codec.Info.Width);
@@ -36,7 +33,6 @@ public class ResizeSkiaSharpJeVe
 			}
 			
 			using var image = SKImage.FromBitmap(resized);
-			
 			
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"SkiaSharpJeVe-{size}");
 			

@@ -12,6 +12,7 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
 
         public void ImageResize(int size, string sourcePath, string destinationPath, int quality)
         {
+            throw new NotImplementedException();
             var image = Image(sourcePath);
 
             if (image != null)
@@ -21,7 +22,7 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
                 using (MemoryStream memStream = new MemoryStream())
                 {
                     newImage.Save(memStream, ImageFormat.Jpeg, quality);
-                    using (FileStream output = File.Create(FileNameLogic.OutputPath(sourcePath, destinationPath, "Maui")))
+                    using (FileStream output = File.Create(FileNameLogic.OutputPath(sourcePath, destinationPath, $"Maui")))
                     {
                         memStream.Seek(0, SeekOrigin.Begin);
                         memStream.CopyTo(output);

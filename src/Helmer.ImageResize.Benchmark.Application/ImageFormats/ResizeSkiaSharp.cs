@@ -35,9 +35,7 @@ public class ResizeSkiaSharp
 			
 			using var image = SKImage.FromBitmap(resized);
 			
-			
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"SkiaSharp-{size}");
-			
 			
 			using var pngOutput = File.OpenWrite($"{fileName}.png");
 			image.Encode(SKEncodedImageFormat.Png, quality).SaveTo(pngOutput);

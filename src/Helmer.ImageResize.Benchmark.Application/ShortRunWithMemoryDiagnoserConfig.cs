@@ -19,7 +19,7 @@ public class ShortRunWithMemoryDiagnoserConfig : ManualConfig
     {
         this.AddJob(Job.ShortRun
             .WithWarmupCount(1)
-            .WithIterationCount(5)
+            .WithIterationCount(10)
             //.WithUnrollFactor(32)
             .WithArguments(new Argument[]
             {

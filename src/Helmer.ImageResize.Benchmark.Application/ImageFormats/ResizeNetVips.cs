@@ -14,15 +14,26 @@ public class ResizeNetVips
 			using var resized = Image.Thumbnail(sourcePath, width, height);
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
 			
+			using var imageNoExif = resized.Mutate(mut =>
+				{
+					foreach (var field in resized.GetFields())
+					{
+						if (field == "icc-profile-data")
+							continue;
+						mut.Remove(field);
+					}
+				}
+			);
+			
 			// save as png
 			var pngFileName = $"{fileName}.png";
 			var pngTarget = Target.NewToFile(pngFileName);
-			resized.WriteToTarget(pngTarget, ".png");
+			imageNoExif.WriteToTarget(pngTarget, ".png");
 			
 			// save as webp
 			var webpFileName = $"{fileName}.webp";
 			var webpTarget = Target.NewToFile(webpFileName);
-			resized.WriteToTarget(webpTarget, ".webp");
+			imageNoExif.WriteToTarget(webpTarget, ".webp");
 			
 			// save as jpg
 			var jpgFileName = $"{fileName}.jpg";
@@ -31,9 +42,7 @@ public class ResizeNetVips
 			{
 				{"Q", quality}
 			};
-			resized.WriteToTarget(target, ".jpg", kwargs);
+			imageNoExif.WriteToTarget(target, ".jpg", kwargs);
 		}
-		
-		
 	}
 }
