@@ -14,35 +14,45 @@ public class ResizeNetVips
 			using var resized = Image.Thumbnail(sourcePath, width, height);
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
 			
-			using var imageNoExif = resized.Mutate(mut =>
-				{
-					foreach (var field in resized.GetFields())
-					{
-						if (field == "icc-profile-data")
-							continue;
-						mut.Remove(field);
-					}
-				}
-			);
+			// using var imageNoExif = resized.Mutate(mut =>
+			// 	{
+			// 		foreach (var field in resized.GetFields())
+			// 		{
+			// 			if (field == "icc-profile-data")
+			// 				continue;
+			// 			mut.Remove(field);
+			// 		}
+			// 	}
+			// );
+			
+			using var copy = resized.CopyMemory();
+				
 			
 			// save as png
 			var pngFileName = $"{fileName}.png";
-			var pngTarget = Target.NewToFile(pngFileName);
-			imageNoExif.WriteToTarget(pngTarget, ".png");
+			var pngOptions = new VOption
+			{
+				{ "strip", true }
+			};
+			copy.WriteToFile(pngFileName, pngOptions);
 			
 			// save as webp
 			var webpFileName = $"{fileName}.webp";
-			var webpTarget = Target.NewToFile(webpFileName);
-			imageNoExif.WriteToTarget(webpTarget, ".webp");
+            var webpOptions = new VOption
+            {
+                { "Q", quality },
+                { "strip", true }
+            };
+            copy.WriteToFile(webpFileName, webpOptions);
 			
 			// save as jpg
 			var jpgFileName = $"{fileName}.jpg";
-			var target = Target.NewToFile(jpgFileName);
 			var kwargs = new VOption
 			{
-				{"Q", quality}
+				{"Q", quality},
+				{ "strip", true }
 			};
-			imageNoExif.WriteToTarget(target, ".jpg", kwargs);
+			copy.WriteToFile(jpgFileName, kwargs);
 		}
 	}
 }

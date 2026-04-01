@@ -2,6 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Helmer.ImageResize.Benchmark.Application.Extensions;
+using SkiaSharp;
 
 namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
@@ -48,8 +49,6 @@ public class ResizeDrawing
 
             var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"SystemDrawing-{size}");
             
-            resized.Save($"{fileName}.png", ImageFormat.Png);
-
             var png = (Bitmap)resized.Clone();
             png.Save($"{fileName}.png", ImageFormat.Png);
 
@@ -58,10 +57,17 @@ public class ResizeDrawing
 
             using var webpEncoderParams = new EncoderParameters(1);
 
-            // TODO Webp format for System.Drawing
             if (systemDrawingWebpCodec == null)
             {
-                Console.WriteLine("Webp codec not found");
+                using var ms = new MemoryStream();
+                resized.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+
+                using var skBitmap = SKBitmap.Decode(ms);
+                using var skImage = SKImage.FromBitmap(skBitmap);
+                using var skData = skImage.Encode(SKEncodedImageFormat.Webp, quality);
+                using var file = File.OpenWrite($"{fileName}-SK.webp");
+                skData.SaveTo(file);
                 continue;
             }
 
