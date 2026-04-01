@@ -3,14 +3,13 @@
 public class ImageService
 {
     private IEnumerable<string> _images;
-    private string _imageDirectory;
     private string _outputDirectory;
 
     public ImageService()
     {
-        _imageDirectory = FindClosestDirectory();
-        _images = Load(_imageDirectory);
-        _outputDirectory = CreateOutput(_imageDirectory);
+        var imageDirectory = FindClosestDirectory();
+        _images = Load(imageDirectory);
+        _outputDirectory = CreateOutput(imageDirectory);
     }
 
 

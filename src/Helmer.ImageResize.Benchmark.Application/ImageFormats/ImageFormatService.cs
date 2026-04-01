@@ -3,14 +3,13 @@
 public class ImageFormatService
 {
     private IEnumerable<string> _images;
-    private string _imageDirectory;
     private string _outputDirectory;
 
     public ImageFormatService()
     {
-        _imageDirectory = FindClosestDirectory();
-        _images = Load(_imageDirectory);
-        _outputDirectory = CreateOutput(_imageDirectory);
+        var imageDirectory = FindClosestDirectory();
+        _images = Load(imageDirectory);
+        _outputDirectory = CreateOutput(imageDirectory);
     }
 
 
@@ -72,7 +71,7 @@ public class ImageFormatService
     }
 
     /// <summary>
-    /// Crete Output directory //ToDo change it to take an input path later
+    /// Create Output directory //ToDo change it to take an input path later
     /// </summary>
     /// <param name="imageDirectory"></param>
 	private static string CreateOutput(string imageDirectory)

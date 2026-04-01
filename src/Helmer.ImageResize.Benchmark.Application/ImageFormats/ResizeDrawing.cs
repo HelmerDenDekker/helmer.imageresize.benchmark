@@ -16,7 +16,7 @@ public class ResizeDrawing
         var systemDrawingJpegCodec =
             ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
         var systemDrawingWebpCodec =
-            ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == ImageFormat.Webp.Guid);
+            ImageCodecInfo.GetImageEncoders().FirstOrDefault(codec => codec.FormatID == ImageFormat.Webp.Guid);
 
         using var image = Image.FromFile(sourcePath, true);
 
