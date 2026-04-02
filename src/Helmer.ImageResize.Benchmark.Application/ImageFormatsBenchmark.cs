@@ -12,6 +12,12 @@ public class ImageFormatsBenchmark
 
     [Benchmark(Baseline = true)]
     public void ResizeDrawing() => new ImageFormatService().SystemDrawingBenchmark(_sizes, _quality);
+    
+    [Benchmark]
+    public void ResizeNetVips() => new ImageFormatService().VipsBenchmark(_sizes, _quality);
+    
+    [Benchmark]
+    public void ResizeSkiaSharp() => new ImageFormatService().SkiaSharpBenchmark(_sizes, _quality);
 
     [Benchmark]
     public void ResizeImageSharp() => new ImageFormatService().ImageSharpBenchmark(_sizes, _quality);
@@ -21,10 +27,4 @@ public class ImageFormatsBenchmark
 
     [Benchmark]
     public void ResizeMagicScaler() => new ImageFormatService().MagicScalerBenchmark(_sizes, _quality);
-
-    [Benchmark]
-    public void ResizeNetVips() => new ImageFormatService().VipsBenchmark(_sizes, _quality);
-    
-    [Benchmark]
-    public void ResizeSkiaSharp() => new ImageFormatService().SkiaSharpBenchmark(_sizes, _quality);
 }
