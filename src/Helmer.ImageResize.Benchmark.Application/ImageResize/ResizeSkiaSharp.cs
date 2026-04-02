@@ -37,6 +37,7 @@ public class ResizeSkiaSharp
 			// image.Encode(SKEncodedImageFormat.Jpeg, quality)
 			// 	.SaveTo(jpegOutput);
 			
+			// Remark: Using this way really screws up image quality for Skia
 			using var surface =
 				SKSurface.Create(new SKImageInfo(scaled.width, scaled.height, original.ColorType, original.AlphaType));
 			using var canvas = surface.Canvas;
