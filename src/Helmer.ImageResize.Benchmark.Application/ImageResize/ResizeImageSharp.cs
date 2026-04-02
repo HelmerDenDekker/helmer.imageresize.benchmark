@@ -16,7 +16,7 @@ public class ResizeImageSharp
 			var (width, height) = SizeLogic.ScaledSize(image.Width, image.Height, size);
 			using Image resized = image.Clone(i => i.Resize(width, height));
 
-			// Reduce the size of the file //ToDo is this cheating??
+			// Reduce the size of the file
 			resized.Metadata.ExifProfile = null;
 			resized.Metadata.IptcProfile = null;
 			resized.Metadata.XmpProfile = null;

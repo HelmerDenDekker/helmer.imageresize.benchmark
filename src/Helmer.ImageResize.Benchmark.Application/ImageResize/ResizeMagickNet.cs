@@ -10,12 +10,20 @@ public class ResizeMagickNet
 		foreach (var size in sizes)
 		{
 			using var image = new MagickImage(sourcePath);
+			// https://usage.imagemagick.org/misc/
+			//image.Interpolate = PixelInterpolateMethod.Catrom; // BiCubic
+			//image.FilterType = FilterType.Catrom; uses Lanczos by default
 			
             var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
             image.Resize((uint)scaled.width, (uint)scaled.height);
 
             // Reduce the size of the file
-            image.Strip();
+            //image.Strip();
+            var exif = image.GetExifProfile();
+            if (exif != null)
+            {
+	            image.RemoveProfile(exif);
+            }
 
             // Save the results
             var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"MagickNET-{size}");

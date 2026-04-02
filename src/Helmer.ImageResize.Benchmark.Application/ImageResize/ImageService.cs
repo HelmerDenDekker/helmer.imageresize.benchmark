@@ -52,13 +52,13 @@ public class ImageService
         }
     }
     
-    //public void SkiaSharpBenchmark(int[] sizes, int quality)
-    //{
-    //    foreach (string image in _images)
-    //    {
-    //        new ResizeSkiaSharp().ImageResize(sizes, image, _outputDirectory, quality);
-    //    }
-    //}
+    public void SkiaSharpBenchmark(int[] sizes, int quality)
+    {
+        foreach (string image in _images)
+        {
+            new ResizeSkiaSharp().ImageResize(sizes, image, _outputDirectory, quality);
+        }
+    }
     
     public void VipsBenchmark(int[] sizes, int quality)
     {
@@ -76,11 +76,11 @@ public class ImageService
         }
     }
 
-    public void ImageFlowBenchmark(int[] sizes, int quality)
+    public async Task ImageFlowBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
         {
-            new ResizeImageFlow().ImageResize(sizes, image, _outputDirectory, quality);
+            await new ResizeImageFlow().ImageResize(sizes, image, _outputDirectory, quality);
         }
     }
 

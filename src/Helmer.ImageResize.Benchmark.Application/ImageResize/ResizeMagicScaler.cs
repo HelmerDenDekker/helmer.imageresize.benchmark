@@ -9,9 +9,10 @@ public class ResizeMagicScaler
 {
     public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
     {
-        var image = Image.FromStream(File.OpenRead(sourcePath), false, false);
+        using var sourceStream = File.OpenRead(sourcePath);
+        using var image = Image.FromStream(sourceStream, false, false);
 
-		foreach (var size in sizes)
+        foreach (var size in sizes)
 		{
 
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);

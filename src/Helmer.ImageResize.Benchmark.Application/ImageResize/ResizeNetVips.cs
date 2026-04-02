@@ -11,7 +11,10 @@ public class ResizeNetVips
 		foreach (var size in sizes)
 		{
 			var (width, height) = SizeLogic.ScaledSize(image.Width, image.Height, size);
-			using var resized = Image.Thumbnail(sourcePath, width, height);
+			var horizontalShrinkFactor = image.Width / width;
+			var verticalShrinkFactor = image.Height / height;
+			//using var resized = Image.Thumbnail(sourcePath, width, height);
+			using var resized = image.Reduce(horizontalShrinkFactor, verticalShrinkFactor, kernel: Enums.Kernel.Linear);
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
 
 			using var imageNoExif = resized.Mutate(mut =>
@@ -26,12 +29,11 @@ public class ResizeNetVips
 			);
 			// save as jpg
 			var jpgFileName = $"{fileName}.jpg";
-			var target = Target.NewToFile(jpgFileName);
 			var kwargs = new VOption
 			{
 				{"Q", quality}
 			};
-			imageNoExif.WriteToTarget(target, ".jpg", kwargs);
+			imageNoExif.WriteToFile(jpgFileName, kwargs);
 		}
 	}
 }

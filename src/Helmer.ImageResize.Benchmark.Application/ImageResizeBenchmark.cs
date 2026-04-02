@@ -22,8 +22,8 @@ public class ImageResizeBenchmark
     [Benchmark]
     public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(_sizes, _quality);
 
-    //[Benchmark]
-    //public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(sizes, quality);
+    [Benchmark]
+    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(_sizes, _quality);
 
     [Benchmark]
     public void ResizeNetVips() => new ImageService().VipsBenchmark(_sizes, _quality);
@@ -35,7 +35,7 @@ public class ImageResizeBenchmark
     public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(_sizes, _quality);
+    public async Task ResizeImageFlow() => await new ImageService().ImageFlowBenchmark(_sizes, _quality);
 
     //[Benchmark]
     //public void ResizeMaui() => new ImageService().MauiBenchmark(size, quality);

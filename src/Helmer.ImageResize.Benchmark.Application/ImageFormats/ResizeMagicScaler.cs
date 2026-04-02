@@ -12,7 +12,8 @@ public class ResizeMagicScaler
 		CodecManager.Configure(codecs => {
 			codecs.UseLibwebp();
 		});
-        var image = Image.FromStream(File.OpenRead(sourcePath), false, false);
+		using var sourceStream = File.OpenRead(sourcePath);
+        using var image = Image.FromStream(sourceStream, false, false);
 
 		foreach (var size in sizes)
 		{

@@ -24,7 +24,7 @@ public class ResizeDrawing
         foreach (var size in sizes)
         {
             var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
-            var resized = new Bitmap(scaled.width, scaled.height);
+            using var resized = new Bitmap(scaled.width, scaled.height);
 
             using var graphics = Graphics.FromImage(resized);
 
@@ -49,10 +49,10 @@ public class ResizeDrawing
 
             var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"SystemDrawing-{size}");
             
-            var png = (Bitmap)resized.Clone();
+            using var png = (Bitmap)resized.Clone();
             png.Save($"{fileName}.png", ImageFormat.Png);
 
-            var jpg = (Bitmap)resized.Clone();
+            using var jpg = (Bitmap)resized.Clone();
             jpg.Save($"{fileName}.jpg", systemDrawingJpegCodec, encoderParams);
 
             using var webpEncoderParams = new EncoderParameters(1);
@@ -71,7 +71,7 @@ public class ResizeDrawing
                 continue;
             }
 
-            Image webp = (Bitmap)resized.Clone();
+            using Image webp = (Bitmap)resized.Clone();
             webp.Save($"{fileName}.webp", systemDrawingWebpCodec, webpEncoderParams);
         }
     }

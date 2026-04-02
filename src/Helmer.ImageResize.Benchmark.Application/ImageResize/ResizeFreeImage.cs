@@ -19,7 +19,7 @@ public class ResizeFreeImage
 				using (var resized = new FreeImageBitmap(image, scaled.width, scaled.height))
 				{
 					// JPEG_QUALITYGOOD is 75 JPEG. JPEG_BASELINE strips metadata (EXIF, etc.)
-					resized.Save(FileNameLogic.OutputPath(sourcePath, destinationPath, $"FreeImage-{size}"),
+					resized.Save(FileNameLogic.OutputPath(sourcePath, destinationPath, $"FreeImage-{size}.jpg"),
 						FREE_IMAGE_FORMAT.FIF_JPEG,
 						FREE_IMAGE_SAVE_FLAGS.JPEG_QUALITYSUPERB |
 						FREE_IMAGE_SAVE_FLAGS.JPEG_SUBSAMPLING_444 | FREE_IMAGE_SAVE_FLAGS.JPEG_BASELINE);

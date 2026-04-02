@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Running;
-using Helmer.ImageResize.Benchmark.Application.ImageResize;
 
 namespace Helmer.ImageResize.Benchmark.Application;
 

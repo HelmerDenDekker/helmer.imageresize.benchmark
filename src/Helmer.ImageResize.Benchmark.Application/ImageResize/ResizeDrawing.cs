@@ -20,7 +20,7 @@ public class ResizeDrawing
 		foreach (var size in sizes)
 		{
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
-			var resized = new Bitmap(scaled.width, scaled.height);
+			using var resized = new Bitmap(scaled.width, scaled.height);
 
 			using var graphics = Graphics.FromImage(resized);
 
