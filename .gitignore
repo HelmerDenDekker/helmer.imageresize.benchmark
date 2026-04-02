@@ -391,3 +391,6 @@ coverage
 *.sw?
 
 output/*
+images/*
+smallImages/*
+temp-images/*

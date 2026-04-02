@@ -1,11 +1,11 @@
-﻿namespace Helmer.ImageResize.Benchmark.Application.ImageResize;
+﻿namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
-public class ImageService
+public class ImageFormatService
 {
     private IEnumerable<string> _images;
     private string _outputDirectory;
 
-    public ImageService()
+    public ImageFormatService()
     {
         var imageDirectory = FindClosestDirectory();
         _images = Load(imageDirectory);
@@ -44,14 +44,6 @@ public class ImageService
         }
     }
 
-    public void SkiaSharpJeveBenchmark(int[] sizes, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeSkiaSharpJeVe().ImageResize(sizes, image, _outputDirectory, quality);
-        }
-    }
-    
     public void SkiaSharpBenchmark(int[] sizes, int quality)
     {
         foreach (string image in _images)
@@ -68,33 +60,6 @@ public class ImageService
         }
     }
     
-    public void FreeImageBenchmark(int[] sizes, int quality)
-    {
-        foreach (string image in _images)
-        {
-            new ResizeFreeImage().ImageResize(sizes, image, _outputDirectory, quality);
-        }
-    }
-
-    public async Task ImageFlowBenchmark(int[] sizes, int quality)
-    {
-        foreach (string image in _images)
-        {
-            await new ResizeImageFlow().ImageResize(sizes, image, _outputDirectory, quality);
-        }
-    }
-
-    //public void MauiBenchmark(int[] sizes, int quality)
-    //{
-    //    foreach (string image in _images)
-    //    {
-    //        new ResizeMaui().ImageResize(size, image, _outputDirectory, quality);
-    //    }
-    //}
-
-
-
-
     /// <summary>
     /// Loads filenames from the images directory //ToDo validation which is now in FindClosestDirectory
     /// </summary>
@@ -106,7 +71,7 @@ public class ImageService
     }
 
     /// <summary>
-    /// Crete Output directory //ToDo change it to take an input path later
+    /// Create Output directory //ToDo change it to take an input path later
     /// </summary>
     /// <param name="imageDirectory"></param>
 	private static string CreateOutput(string imageDirectory)

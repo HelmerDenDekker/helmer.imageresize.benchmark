@@ -8,6 +8,6 @@ public static class FileNameLogic
             outputDirectory,
             Path.GetFileNameWithoutExtension(inputPath)
             + "-" + postfix
-            + Path.GetExtension(inputPath));
+            );
     }
 }
