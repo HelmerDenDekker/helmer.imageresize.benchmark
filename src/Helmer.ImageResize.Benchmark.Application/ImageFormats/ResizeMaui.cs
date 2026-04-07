@@ -1,11 +1,12 @@
-﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
+﻿using System.Runtime.InteropServices;
+using Helmer.ImageResize.Benchmark.Application.Extensions;
 using Microsoft.Maui.Graphics;
-using System.Runtime.InteropServices;
 using Microsoft.Maui.Graphics.Platform;
+
 //using Microsoft.Maui.Graphics.Win2D;
 
 
-namespace Helmer.ImageResize.Benchmark.Application.ImageResize
+namespace Helmer.ImageResize.Benchmark.Application.ImageFormats
 {
     public class ResizeMaui
     {
@@ -22,7 +23,7 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageResize
                 using (MemoryStream memStream = new MemoryStream())
                 {
                     newImage.Save(memStream, ImageFormat.Jpeg, quality);
-                    using (FileStream output = File.Create(FileNameLogic.OutputPath(sourcePath, destinationPath, $"Maui")))
+                    using (FileStream output = File.Create(FileNameLogic.OutputPath(sourcePath, destinationPath, "Maui")))
                     {
                         memStream.Seek(0, SeekOrigin.Begin);
                         memStream.CopyTo(output);

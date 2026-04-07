@@ -7,29 +7,35 @@ namespace Helmer.ImageResize.Benchmark.Application;
 [MarkdownExporterAttribute.Default]
 public class ImageResizeBenchmark
 {
-    private int size = 150;
-    private int quality = 75;
+    private readonly int[] _sizes = [80, 320, 768];//[80, 320, 768, 1280];
+    private readonly int _quality = 95;
 
     [Benchmark(Baseline = true)]
-    public void ResizeDrawing() => new ImageService().SystemDrawingBenchmark(size, quality);
+    public void ResizeDrawing() => new ImageService().SystemDrawingBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeImageSharp() => new ImageService().ImageSharpBenchmark(size, quality);
+    public void ResizeImageSharp() => new ImageService().ImageSharpBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeMagickNet() => new ImageService().MagickNetBenchmark(size, quality);
+    public void ResizeMagickNet() => new ImageService().MagickNetBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(size, quality);
+    public void ResizeMagicScaler() => new ImageService().MagicScalerBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(size, quality);
+    public void ResizeSkiaSharp() => new ImageService().SkiaSharpBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(size, quality);
+    public void ResizeNetVips() => new ImageService().VipsBenchmark(_sizes, _quality);
+    
+    [Benchmark]
+    public void ResizeSkiaJeveSharp() => new ImageService().SkiaSharpJeveBenchmark(_sizes, _quality);
+    
+    [Benchmark]
+    public void ResizeFreeImage() => new ImageService().FreeImageBenchmark(_sizes, _quality);
 
     [Benchmark]
-    public void ResizeImageFlow() => new ImageService().ImageFlowBenchmark(size, quality);
+    public async Task ResizeImageFlow() => await new ImageService().ImageFlowBenchmark(_sizes, _quality);
 
     //[Benchmark]
     //public void ResizeMaui() => new ImageService().MauiBenchmark(size, quality);
