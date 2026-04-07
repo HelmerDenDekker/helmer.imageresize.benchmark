@@ -11,8 +11,8 @@ public class ResizeNetVips
 		foreach (var size in sizes)
 		{
 			var (width, height) = SizeLogic.ScaledSize(image.Width, image.Height, size);
-			var horizontalShrinkFactor = image.Width / width;
-			var verticalShrinkFactor = image.Height / height;
+			var horizontalShrinkFactor = image.Width / (double)width;
+			var verticalShrinkFactor = image.Height / (double)height;
 			//using var resized = Image.Thumbnail(sourcePath, width, height);
 			using var resized = image.Reduce(horizontalShrinkFactor, verticalShrinkFactor, kernel: Enums.Kernel.Linear);
 			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
