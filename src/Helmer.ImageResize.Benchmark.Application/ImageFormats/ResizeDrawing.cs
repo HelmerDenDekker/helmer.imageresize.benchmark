@@ -9,6 +9,9 @@ namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 /// <summary>
 ///     Uses the system.drawing of Windows, old Win32 GDI
 ///     https://www.hanselman.com/blog/how-do-you-use-systemdrawing-in-net-core
+///     optimized for high-quality
+///     420 color profile sampling, there is no way to influence this sadly
+///     HighQualityBicubic interpolation
 /// </summary>
 public class ResizeDrawing
 {

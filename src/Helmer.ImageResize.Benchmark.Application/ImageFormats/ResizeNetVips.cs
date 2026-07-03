@@ -1,4 +1,5 @@
 ﻿using Helmer.ImageResize.Benchmark.Application.Extensions;
+using ImageMagick.Drawing;
 using NetVips;
 
 namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
@@ -11,8 +12,15 @@ public class ResizeNetVips
 		foreach (var size in sizes)
 		{
 			var (width, height) = SizeLogic.ScaledSize(image.Width, image.Height, size);
-			using var resized = Image.Thumbnail(sourcePath, width, height);
-			var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
+			// var horizontalShrinkFactor = image.Width / (double)width;
+			// var verticalShrinkFactor = image.Height / (double)height;
+			using var resized = Image.Thumbnail(sourcePath, width, height); //https://www.libvips.org/API/current/libvips-resample.html
+			//using var resized = image.Reduce(horizontalShrinkFactor, verticalShrinkFactor, kernel: Enums.Kernel.Lanczos3);
+			// double scale = image.Width / (double)size;
+			// var kernel = scale < 1 ? Enums.Kernel.Lanczos3 : Enums.Kernel.Mitchell; // Mitchell is best for enlarging, and shrinking pictures with sharp lines. Otherwise use Lanczos for shrinking.
+			// using var resized = image.Resize(scale, kernel);
+			
+            var fileName = FileNameLogic.OutputPath(sourcePath, destinationPath, $"NetVips-{size}");
 
 			using var imageNoExif = resized.Mutate(mut =>
 				{
@@ -26,7 +34,6 @@ public class ResizeNetVips
 			);
 
 			using var copy = imageNoExif.CopyMemory();
-				
 			
 			// save as png
 			var pngFileName = $"{fileName}.png";

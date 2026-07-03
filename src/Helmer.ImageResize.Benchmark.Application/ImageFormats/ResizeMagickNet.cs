@@ -12,6 +12,7 @@ public class ResizeMagickNet
 		{
 			using var image = new MagickImage(sourcePath);
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
+			//TODO filter-choosing-magic?
 			image.Resize((uint)scaled.width, (uint)scaled.height);
 
 			//if(image.ColorSpace != ColorSpace.sRGB)

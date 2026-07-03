@@ -8,6 +8,8 @@ using SixLabors.ImageSharp.Processing;
 namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
 // https://docs.sixlabors.com/articles/imagesharp/resize.html
+// 444 color sampling
+// Lanczos3
 public class ResizeImageSharp
 {
     public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
@@ -16,7 +18,7 @@ public class ResizeImageSharp
 		foreach (var size in sizes)
 		{
 			var (width, height) = SizeLogic.ScaledSize(image.Width, image.Height, size);
-			using Image resized = image.Clone(i => i.Resize(width, height));
+			using Image resized = image.Clone(i => i.Resize(width, height, KnownResamplers.MitchellNetravali));
 
 			// Reduce the size of the file //ToDo is this cheating??
 			resized.Metadata.ExifProfile = null;
