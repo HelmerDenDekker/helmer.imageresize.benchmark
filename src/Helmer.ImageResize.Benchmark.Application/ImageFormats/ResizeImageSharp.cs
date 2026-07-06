@@ -8,7 +8,7 @@ using SixLabors.ImageSharp.Processing;
 namespace Helmer.ImageResize.Benchmark.Application.ImageFormats;
 
 // https://docs.sixlabors.com/articles/imagesharp/resize.html
-// 444 color sampling
+// 420 color sampling
 // Lanczos3
 public class ResizeImageSharp
 {
@@ -29,7 +29,7 @@ public class ResizeImageSharp
 			
 			// Save the results.
 			using var jpegOutput = File.Open($"{fileName}.jpg", FileMode.Create);
-			var imageSharpJpegEncoder = new JpegEncoder() { Quality = quality, ColorType = JpegEncodingColor.YCbCrRatio444 }; // 444 means highest quality
+			var imageSharpJpegEncoder = new JpegEncoder() { Quality = quality, ColorType = JpegEncodingColor.YCbCrRatio420 }; // 420 is medium quality
 			resized.Save(jpegOutput, imageSharpJpegEncoder);
 			
 			using var pngOutput = File.Open($"{fileName}.png", FileMode.Create);
@@ -37,7 +37,7 @@ public class ResizeImageSharp
 			resized.Save(pngOutput, pngEncoder);
 			
 			using var webpOutput = File.Open($"{fileName}.webp", FileMode.Create);
-			var webpEncoder = new WebpEncoder();
+			var webpEncoder = new WebpEncoder() { Quality = quality };
 			resized.Save(webpOutput, webpEncoder);
 		}
 	}

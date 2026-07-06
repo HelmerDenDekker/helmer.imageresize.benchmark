@@ -15,6 +15,8 @@ public static class SizeLogic
         //     width = (int)Math.Round(inWidth * outSize / (double)inHeight);
         //     height = outSize;
         // }
+        
+        // for BeterBed, width is always outsize.
         width = outSize;
         height = (int)Math.Round(inHeight * outSize / (double)inWidth);
 
@@ -24,17 +26,21 @@ public static class SizeLogic
     public static (int width, int height) ScaledSize(float inWidth, float inHeight, int outSize)
     {
         int width, height;
-        if (inWidth > inHeight)
-        {
-            width = outSize;
-            height = (int)Math.Round(inHeight * outSize / (double)inWidth);
-        }
-        else
-        {
-            width = (int)Math.Round(inWidth * outSize / (double)inHeight);
-            height = outSize;
-        }
-
+        // if (inWidth > inHeight)
+        // {
+        //     width = outSize;
+        //     height = (int)Math.Round(inHeight * outSize / (double)inWidth);
+        // }
+        // else
+        // {
+        //     width = (int)Math.Round(inWidth * outSize / (double)inHeight);
+        //     height = outSize;
+        // }
+        
+        // for BeterBed, width is always outsize.
+        width = outSize;
+        height = (int)Math.Round(inHeight * outSize / (double)inWidth);
+        
         return (width, height);
     }
 }

@@ -8,9 +8,16 @@ public class ResizeMagickNet
 	//ToDo Check if the images are correctly saved
     public void ImageResize(int[] sizes, string sourcePath, string destinationPath, int quality)
 	{
+		var settings = new MagickReadSettings
+		{
+			ColorSpace = ColorSpace.sRGB
+		};
 		foreach (var size in sizes)
 		{
-			using var image = new MagickImage(sourcePath);
+			using var image = new MagickImage(sourcePath, settings);
+			
+			image.TransformColorSpace(ColorProfiles.SRGB);
+			
 			var scaled = SizeLogic.ScaledSize(image.Width, image.Height, size);
 			//TODO filter-choosing-magic?
 			image.Resize((uint)scaled.width, (uint)scaled.height);
@@ -39,6 +46,7 @@ public class ResizeMagickNet
 
 			// Set the quality
 			image.Quality = (uint)quality;
+			
 			image.Write($"{fileName}.jpg", MagickFormat.Jpg);
         }
 	}

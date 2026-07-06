@@ -42,7 +42,7 @@ public class ResizeMagicScaler
 				Width = scaled.width,
 				Height = scaled.height,
 				ResizeMode = CropScaleMode.Max,
-				EncoderOptions = new JpegEncoderOptions(quality, ChromaSubsampleMode.Subsample444, true)
+				EncoderOptions = new JpegEncoderOptions(quality, ChromaSubsampleMode.Subsample420, true)
 			};
 			MagicImageProcessor.ProcessImage(sourcePath, jpegOutput, jpgSettings);
 			
