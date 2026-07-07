@@ -37,7 +37,7 @@ public class ResizeImageSharp
 			resized.Save(pngOutput, pngEncoder);
 			
 			using var webpOutput = File.Open($"{fileName}.webp", FileMode.Create);
-			var webpEncoder = new WebpEncoder() { Quality = quality };
+			var webpEncoder = new WebpEncoder() { Quality = quality};//, FileFormat = WebpFileFormatType.Lossy, Method = WebpEncodingMethod.Level4 }; // 
 			resized.Save(webpOutput, webpEncoder);
 		}
 	}

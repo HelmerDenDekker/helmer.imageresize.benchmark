@@ -52,6 +52,7 @@ public class ResizeNetVips
 				{
 					foreach (var field in resized.GetFields())
 					{
+						// TODO: before I needed the icc data, now I do not anymore? => in Mozilla, with ICC, the colors are off!
 						// if (field == "icc-profile-data")
 						// 	continue;
 						mut.Remove(field);
@@ -66,15 +67,36 @@ public class ResizeNetVips
 			copy.Pngsave(pngFileName, quality);
 			//copy.WriteToFile(pngFileName);
 			
-			// save as webp
+			
+			// save as lossless webp
 			var webpFileName = $"{fileName}.webp";
+			// var webpOptions = new VOption
+			// {
+			//     { "Q", quality }
+			// };
+			//copy.WriteToFile(webpFileName, webpOptions);
+			// default = 75, default effort = 4 (method)
+			copy.Webpsave(webpFileName, q: quality);
+			
+			// save as lossless webp
+			var webpFileLosslessName = $"{fileName}-lossless.webp";
             // var webpOptions = new VOption
             // {
             //     { "Q", quality }
             // };
             //copy.WriteToFile(webpFileName, webpOptions);
-            copy.Webpsave(webpFileName, q: quality, minSize: true);
+            // default = 75, default effort = 4 (method)
+            copy.Webpsave(webpFileLosslessName, q: quality, lossless: true, effort:6);
 			
+            // save as lossy webp
+            var webpLossyFileName = $"{fileName}-lossy.webp";
+            // var webpOptions = new VOption
+            // {
+            //     { "Q", quality }
+            // };
+            //copy.WriteToFile(webpFileName, webpOptions);
+            copy.Webpsave(webpLossyFileName, q: 80, lossless: false, smartSubsample: true);
+            
 			// save as jpg
 			var jpgFileName = $"{fileName}.jpg";
 			// var kwargs = new VOption
